@@ -1,0 +1,13 @@
+<h2>Verify OTP</h2>
+
+<p>Account: {{ key }}</p>
+
+<input
+  type="text"
+  placeholder="Enter OTP"
+  [(ngModel)]="otp"
+/>
+
+<br><br>
+
+<button (click)="verifyOtp()">Verify OTP</button>

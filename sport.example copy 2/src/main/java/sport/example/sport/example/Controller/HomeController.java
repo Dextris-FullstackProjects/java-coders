@@ -1,6 +1,8 @@
 package sport.example.sport.example.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -40,15 +42,48 @@ public class HomeController {
     public String sendOtpSms(@RequestParam String phone) {
         String otp = otpService.generateOtp(phone);
         smsService.sendOtp(phone, otp);
-        return "OTP sent to your phone. Please check your phone.";
+        return "OTP sent to your phone. Please check your phone. +otp";
     }
 
+
+//    @PostMapping("/verify")
+//    public String verifyOtp(@RequestParam String key, @RequestParam String otp) {
+//        return otpService.validateOtp(key, otp) ? "OTP Verified Successfully" : "Invalid OTP";
+//    }
+//@PostMapping("/verify")
+//public ResponseEntity<Map<String, Object>> verifyOtp(
+//        @RequestParam String key,
+//        @RequestParam String otp) {
+//
+//    boolean valid = otpService.validateOtp(key, otp);
+//
+//    if (valid) {
+//        return ResponseEntity.ok(Map.of(
+//                "success", true,
+//                "message", "OTP Verified Successfully"
+//        ));
+//    } else {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+//                "success", false,
+//                "message", "Invalid OTP"
+//        ));
+//    }
+//}
 
     @PostMapping("/verify")
-    public String verifyOtp(@RequestParam String key, @RequestParam String otp) {
-        return otpService.validateOtp(key, otp) ? "OTP Verified Successfully" : "Invalid OTP";
-    }
+    public ResponseEntity<Map<String, Object>> verifyOtp(
+            @RequestParam String key,
+            @RequestParam String otp) {
 
+        boolean valid = otpService.validateOtp(key, otp);
+
+        return ResponseEntity.ok(Map.of(
+                "success", valid,
+                "message", valid ?
+                        "OTP Verified Successfully" :
+                        "Invalid OTP"
+        ));
+    }
 
     @PostMapping("/send/mail")
     public String requestOtp(@RequestParam String email) {

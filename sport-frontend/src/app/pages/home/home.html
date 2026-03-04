@@ -1,0 +1,64 @@
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="logo">Sport App</h2>
+
+    <ul class="menu">
+      <li class="active">Dashboard</li>
+      <li>Profile</li>
+      <li>Settings</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Top Navbar -->
+    <header class="topbar">
+      <div class="welcome">
+        Welcome, {{ (user$ | async)?.name }}
+      </div>
+
+      <button class="logout-btn" (click)="logout()">
+        Logout
+      </button>
+    </header>
+
+    <!-- Content Area -->
+    <section class="content" *ngIf="user$ | async as user">
+
+      <div class="profile-card">
+        <div class="avatar">
+          {{ user?.name?.charAt(0) }}
+        </div>
+
+        <div class="details">
+          <h3>{{ user?.name }}</h3>
+          <p>{{ user?.email }}</p>
+        </div>
+      </div>
+
+      <!-- Example Stats Cards -->
+      <div class="stats">
+        <div class="stat-card">
+          <h4>Orders</h4>
+          <p>24</p>
+        </div>
+
+        <div class="stat-card">
+          <h4>Revenue</h4>
+          <p>₹12,400</p>
+        </div>
+
+        <div class="stat-card">
+          <h4>Active Users</h4>
+          <p>98</p>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

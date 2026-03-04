@@ -28,10 +28,21 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/", "/login").permitAll()
-                                .requestMatchers("/","/app/send/sms","/app/send/mail","/login").permitAll()
+////                        .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/","/app/send/sms","/app/send/mail","/app/verify").permitAll()
                         .anyRequest().authenticated()
                 )
+
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/",
+//                                "/app/send/sms",
+//                                "/app/send/mail",
+//                                "/app/verify"
+//                        ).permitAll()
+//                        .anyRequest().authenticated()
+//                )
+
                 .oauth2Login(oauth -> oauth
                         .successHandler(oAuth2SuccessHandler)   // ✅ USE THIS
                 )
